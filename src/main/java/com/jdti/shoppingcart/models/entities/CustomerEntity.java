@@ -22,6 +22,7 @@ public class CustomerEntity {
     private String name;
 
     @NotEmpty
+    @Column
     private String address;
 
     @Column(name = "second_address", nullable = false)
