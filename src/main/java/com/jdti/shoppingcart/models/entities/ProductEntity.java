@@ -1,6 +1,7 @@
 package com.jdti.shoppingcart.models.entities;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
@@ -14,9 +15,9 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "products")
 @Data
+@NoArgsConstructor
 public class ProductEntity {
 
-    @NotEmpty
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
@@ -29,12 +30,27 @@ public class ProductEntity {
 
     @NotEmpty
     @Column(name = "sku", nullable = false)
-    private Long sku;
+    private String sku;
 
     @NotNull
     @Column(name = "price", nullable = false)
     private Double price;
 
+    @NotNull
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity;
+
     @Column(name = "description")
     private String description;
+
+    @Column(name = "discount", nullable = false)
+    private boolean discount;
+
+    public ProductEntity(String name, String sku, Double price, Integer quantity, boolean discount) {
+        this.name = name;
+        this.sku = sku;
+        this.price = price;
+        this.quantity = quantity;
+        this.discount = discount;
+    }
 }
