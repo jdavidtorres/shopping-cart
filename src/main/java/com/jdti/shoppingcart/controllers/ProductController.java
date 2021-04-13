@@ -6,14 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RequestMapping("/products")
 @RestController
@@ -28,6 +32,33 @@ public class ProductController {
             return this.validator(result);
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(iProductService.save(product));
+    }
+
+    @GetMapping
+    public ResponseEntity<?> findAll() {
+        List<ProductEntity> products = iProductService.findAll();
+        if (products.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(products);
+    }
+
+    @GetMapping("/detail")
+    public ResponseEntity<?> findById(@RequestParam String idProduct) {
+        Optional<ProductEntity> product = iProductService.findById(idProduct);
+        if (product.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(product.get());
+    }
+
+    @GetMapping("/details")
+    public ResponseEntity<?> findBySku(@RequestParam String sku) {
+        List<ProductEntity> products = iProductService.findBySku(sku);
+        if (products.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(products);
     }
 
     protected ResponseEntity<?> validator(BindingResult result) {

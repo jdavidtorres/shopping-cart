@@ -53,4 +53,8 @@ public class ProductEntity {
         this.quantity = quantity;
         this.discount = discount;
     }
+
+    public Double getPrice() {
+        return discount ? Double.valueOf(this.price / 2) : this.price;
+    }
 }
