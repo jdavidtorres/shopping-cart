@@ -36,6 +36,7 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<?> findAll() {
+        // TODO: Implementar tests unitarios
         List<ProductEntity> products = iProductService.findAll();
         if (products.isEmpty()) {
             return ResponseEntity.noContent().build();
@@ -54,6 +55,7 @@ public class ProductController {
 
     @GetMapping("/details")
     public ResponseEntity<?> findBySku(@RequestParam String sku) {
+        // TODO: Refactorizar el comportamiento del descueto
         List<ProductEntity> products = iProductService.findBySku(sku);
         if (products.isEmpty()) {
             return ResponseEntity.noContent().build();
