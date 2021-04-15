@@ -55,6 +55,7 @@ public class ProductEntity {
     }
 
     public Double getPrice() {
+        // TODO: Hace falta test y refactor
         return discount ? Double.valueOf(this.price / 2) : this.price;
     }
 }
