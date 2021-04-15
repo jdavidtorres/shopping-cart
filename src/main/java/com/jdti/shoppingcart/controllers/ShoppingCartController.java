@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/cart")
 @RestController
@@ -42,14 +44,21 @@ public class ShoppingCartController {
         List<ShoppingCartEntity> carItemsEntities = iShoppingCartService.findByCustomerId(idCustomer);
         if (!carItemsEntities.isEmpty()) {
             List<CarItemDto> carItems = new ArrayList<>();
-            carItemsEntities.forEach(item -> {
+            Double total = 0.0;
+            for (ShoppingCartEntity item : carItemsEntities) {
                 CarItemDto carItemDto = new CarItemDto();
                 carItemDto.setCustomerName(item.getCustomer().getName());
                 carItemDto.setProductName(item.getProduct().getName());
                 carItemDto.setQuantity(item.getQuantity());
+                carItemDto.setItemPrice(item.getQuantity() * item.getProduct().getPrice());
+                carItemDto.setSku(item.getProduct().getSku());
                 carItems.add(carItemDto);
-            });
-            return ResponseEntity.ok(carItems);
+                total += carItemDto.getItemPrice();
+            }
+            Map<String, Object> response = new HashMap<>();
+            response.put("items", carItems);
+            response.put("total", total);
+            return ResponseEntity.ok(response);
         }
         return ResponseEntity.noContent().build();
     }

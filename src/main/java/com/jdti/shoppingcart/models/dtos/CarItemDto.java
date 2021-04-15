@@ -9,7 +9,7 @@ public class CarItemDto {
 
     private String customerName;
     private String productName;
-    private Double price;
+    private Double itemPrice;
     private int quantity;
     private String sku;
 }
