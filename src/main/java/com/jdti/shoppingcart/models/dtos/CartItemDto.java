@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class CarItemDto {
+public class CartItemDto {
 
     private String customerName;
     private String productName;

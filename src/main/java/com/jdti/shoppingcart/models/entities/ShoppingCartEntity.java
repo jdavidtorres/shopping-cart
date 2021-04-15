@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "shopping_carts")
+@Table(name = "cart_items")
 @Data
 @NoArgsConstructor
 public class ShoppingCartEntity {

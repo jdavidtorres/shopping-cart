@@ -26,13 +26,8 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
 
     @Transactional
     @Override
-    public ShoppingCartEntity addCartItemToCart(String idCustomer, String idProduct, int quantity) {
-        // TODO: Hacer mas bonito
-        CustomerEntity customerEntity = new CustomerEntity();
-        customerEntity.setId(idCustomer);
-        ProductEntity productEntity = new ProductEntity();
-        productEntity.setId(idProduct);
-        return iShoppingCartRepository.save(new ShoppingCartEntity(customerEntity, productEntity, quantity));
+    public ShoppingCartEntity addCartItemToCart(CustomerEntity customer, ProductEntity product, int quantity) {
+        return iShoppingCartRepository.save(new ShoppingCartEntity(customer, product, quantity));
     }
 
     @Transactional(readOnly = true)
