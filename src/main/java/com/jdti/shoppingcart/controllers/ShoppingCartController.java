@@ -97,12 +97,18 @@ public class ShoppingCartController {
     }
 
     @DeleteMapping("/clean")
-    public void cleanCart(@RequestParam String idCustomer) {
-        iShoppingCartService.deleteAllByCustomer(idCustomer);
+    public ResponseEntity<?> cleanCart(@RequestParam String idCustomer) {
+        Optional<CustomerEntity> customer = iCustomerService.findById(idCustomer);
+        if (customer.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        iShoppingCartService.deleteAllByCustomer(customer.get());
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping
     public ShoppingCartEntity updateItemQuantity(@RequestParam String idCustomer, @RequestParam String idProduct, @RequestParam String quantity) {
+
         return iShoppingCartService.updateItemQuantity(idCustomer, idProduct, Integer.parseInt(quantity));
     }
 }

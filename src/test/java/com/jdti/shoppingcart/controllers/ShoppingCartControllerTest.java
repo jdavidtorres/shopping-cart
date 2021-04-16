@@ -117,4 +117,43 @@ class ShoppingCartControllerTest {
         ShoppingCartDto cart = objectMapper.readValue(jsonResponse, ShoppingCartDto.class);
         assertEquals(125000, cart.getTotal());
     }
+
+    @Test
+    void cleanCart() throws Exception {
+        ProductEntity newProduct = new ProductEntity("Control Remoto Samsung", "555555", 89900.00, 5, false);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String dtoString = objectMapper.writeValueAsString(newProduct);
+        String mvcResultString = mockMvc.perform(post("/products/")
+                .content(dtoString)
+                .contentType("application/json;charset=UTF-8")
+                .characterEncoding("utf-8"))
+                .andReturn().getResponse().getContentAsString();
+        ProductEntity product = objectMapper.readValue(mvcResultString, ProductEntity.class);
+
+        ItemToCartDto item = new ItemToCartDto("id-customer-1", product.getId(), 3);
+        String itemJson = objectMapper.writeValueAsString(item);
+        mockMvc.perform(post("/cart/")
+                .content(itemJson)
+                .contentType("application/json;charset=UTF-8")
+                .characterEncoding("utf-8"));
+
+        mockMvc.perform(delete("/cart/clean")
+                .param("idCustomer", "id-customer-1")
+                .characterEncoding("utf-8"))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/cart/")
+                .param("idCustomer", "id-customer-1")
+                .characterEncoding("utf-8"))
+                .andExpect(status().isNoContent());
+
+        // Corroboramos que no borre el carrito de otro cliente
+        String jsonResponse = mockMvc.perform(get("/cart/")
+                .param("idCustomer", "id-customer-2")
+                .characterEncoding("utf-8"))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        ShoppingCartDto cart = objectMapper.readValue(jsonResponse, ShoppingCartDto.class);
+        assertEquals(125000, cart.getTotal());
+    }
 }

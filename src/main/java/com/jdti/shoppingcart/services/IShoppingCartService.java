@@ -14,7 +14,7 @@ public interface IShoppingCartService {
 
     void deleteItemCart(CustomerEntity customer, ProductEntity product);
 
-    void deleteAllByCustomer(String idCustomer);
+    void deleteAllByCustomer(CustomerEntity customer);
 
     ShoppingCartEntity updateItemQuantity(String idCustomer, String idProduct, int quantity);
 }

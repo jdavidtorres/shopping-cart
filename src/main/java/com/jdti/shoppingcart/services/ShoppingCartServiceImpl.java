@@ -44,11 +44,8 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
 
     @Transactional
     @Override
-    public void deleteAllByCustomer(String idCustomer) {
-        CustomerEntity customerEntity = new CustomerEntity();
-        customerEntity.setId(idCustomer);
-        // CustomerEntity customer = iCustomerRepository.findById(idCustomer).orElse(new CustomerEntity());
-        iShoppingCartRepository.deleteAllByCustomer(customerEntity);
+    public void deleteAllByCustomer(CustomerEntity customer) {
+        iShoppingCartRepository.deleteAllByCustomer(customer);
     }
 
     @Transactional
