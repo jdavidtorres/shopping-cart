@@ -32,9 +32,8 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<ShoppingCartEntity> findByCustomerId(String idCustomer) {
-        // TODO: Agregar validacion
-        return iShoppingCartRepository.findByCustomer(iCustomerRepository.findById(idCustomer).get());
+    public List<ShoppingCartEntity> findByCustomerId(CustomerEntity customer) {
+        return iShoppingCartRepository.findByCustomer(customer);
     }
 
     @Transactional

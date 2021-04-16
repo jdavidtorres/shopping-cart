@@ -10,7 +10,7 @@ public interface IShoppingCartService {
 
     ShoppingCartEntity addCartItemToCart(CustomerEntity customer, ProductEntity product, int quantity);
 
-    List<ShoppingCartEntity> findByCustomerId(String idCustomer);
+    List<ShoppingCartEntity> findByCustomerId(CustomerEntity customer);
 
     void deleteItemCart(String idCustomer, String idProduct);
 

@@ -2,6 +2,7 @@ package com.jdti.shoppingcart.controllers;
 
 import com.jdti.shoppingcart.models.dtos.CartItemDto;
 import com.jdti.shoppingcart.models.dtos.ItemToCartDto;
+import com.jdti.shoppingcart.models.dtos.ShoppingCartDto;
 import com.jdti.shoppingcart.models.entities.CustomerEntity;
 import com.jdti.shoppingcart.models.entities.ProductEntity;
 import com.jdti.shoppingcart.models.entities.ShoppingCartEntity;
@@ -58,28 +59,28 @@ public class ShoppingCartController {
     }
 
     @GetMapping
-    public ResponseEntity<?> findByCustomerId(String idCustomer) {
-        // TODO: Refactor urgente!!
-        List<ShoppingCartEntity> carItemsEntities = iShoppingCartService.findByCustomerId(idCustomer);
-        if (!carItemsEntities.isEmpty()) {
-            List<CarItemDto> carItems = new ArrayList<>();
-            Double total = 0.0;
-            for (ShoppingCartEntity item : carItemsEntities) {
-                CarItemDto carItemDto = new CarItemDto();
-                carItemDto.setCustomerName(item.getCustomer().getName());
-                carItemDto.setProductName(item.getProduct().getName());
-                carItemDto.setQuantity(item.getQuantity());
-                carItemDto.setItemPrice(item.getQuantity() * item.getProduct().getPrice());
-                carItemDto.setSku(item.getProduct().getSku());
-                carItems.add(carItemDto);
-                total += carItemDto.getItemPrice();
-            }
-            Map<String, Object> response = new HashMap<>();
-            response.put("items", carItems);
-            response.put("total", total);
-            return ResponseEntity.ok(response);
+    public ResponseEntity<?> findByCustomerId(@RequestParam String idCustomer) {
+        Optional<CustomerEntity> customer = iCustomerService.findById(idCustomer);
+
+        if (customer.isEmpty()) {
+            return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.noContent().build();
+
+        List<ShoppingCartEntity> carItemsEntities = iShoppingCartService.findByCustomerId(customer.get());
+
+        if (carItemsEntities.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        List<CartItemDto> carItems = new ArrayList<>();
+        Double total = 0.0;
+        for (ShoppingCartEntity item : carItemsEntities) {
+            CartItemDto carItemDto = new CartItemDto(item.getCustomer().getName(), item.getProduct().getName(), item.getQuantity() * item.getProduct().getPrice(), item.getQuantity(), item.getProduct().getSku());
+            carItems.add(carItemDto);
+            total += carItemDto.getItemPrice();
+        }
+        ShoppingCartDto shoppingCartDto = new ShoppingCartDto(carItems, total);
+        return ResponseEntity.ok(shoppingCartDto);
     }
 
     @DeleteMapping
