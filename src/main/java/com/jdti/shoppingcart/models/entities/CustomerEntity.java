@@ -1,6 +1,7 @@
 package com.jdti.shoppingcart.models.entities;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Table(name = "customers")
 @Data
+@NoArgsConstructor
 public class CustomerEntity {
 
     @Id
@@ -34,4 +36,11 @@ public class CustomerEntity {
 
     @Column(nullable = false)
     private String email;
+
+    public CustomerEntity(String name, String address, String secondAddress, String email) {
+        this.name = name;
+        this.address = address;
+        this.secondAddress = secondAddress;
+        this.email = email;
+    }
 }
