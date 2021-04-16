@@ -36,6 +36,7 @@ class ShoppingCartControllerTest {
 
     @Test
     void addCartItemToCart() throws Exception {
+        // TODO: Agregar escenario de agregar nuevamente un producto, bug
         ProductEntity newProduct = new ProductEntity("Control Remoto Samsung", "555555", 89900.00, 5, false);
         ObjectMapper objectMapper = new ObjectMapper();
         String dtoString = objectMapper.writeValueAsString(newProduct);
