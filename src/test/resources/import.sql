@@ -4,3 +4,7 @@ INSERT INTO products (id, description, discount, name, price, quantity, sku) VAL
 INSERT INTO products (id, description, discount, name, price, quantity, sku) VALUES ('ea26a4bf-3e5e-4873-aa1f-68c05d6b2669', 'Cortacesped Bauker 675 3N1 R/A 21 163Cc 1300 W', '0', 'Bauker Cortacesped 675 3N1 R/A 21 163Cc', '2500000', '5', '467040');
 INSERT INTO products (id, description, discount, name, price, quantity, sku) VALUES ('ea26a4bf-3e5e-4873-aa2f-68c05d6b2670', '', '0', 'Kolor Pintura para Interior Azul Dhule Deluxe Mate 1/2 Galon', '125000', '8', '404900');
 INSERT INTO cart_items (id, quantity, customer_id, product_id) VALUES ('CARRO-3', '1', 'id-customer-2', 'ea26a4bf-3e5e-4875-aa3f-68c0asdgasdg');
+INSERT INTO shipping (id, created_date, id_customer, id_product, order_line, quantity, status, total) VALUES ('ship1', '2021-04-16 10:20:25', 'id-customer-1', 'asdgsad', '1', '3', 'COMPLETADO', '2345234');
+INSERT INTO shipping (id, created_date, id_customer, id_product, order_line, quantity, status, total) VALUES ('ship2', '2021-04-16 10:20:25', 'id-customer-1', 'asdgsad', '2', '3', 'PENDIENTE', '2345234');
+INSERT INTO shipping (id, created_date, id_customer, id_product, order_line, quantity, status, total) VALUES ('ship3', '2021-04-16 10:20:25', 'id-customer-1', 'asdgsad', '2', '3', 'PENDIENTE', '2345234');
+INSERT INTO shipping (id, created_date, id_customer, id_product, order_line, quantity, status, total) VALUES ('ship4', '2021-04-16 10:20:25', 'id-customer-1', 'asdgsad', '2', '3', 'PENDIENTE', '2345234');
