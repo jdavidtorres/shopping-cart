@@ -53,6 +53,22 @@ class ShoppingCartControllerTest {
                 .contentType("application/json;charset=UTF-8")
                 .characterEncoding("utf-8"))
                 .andExpect(status().isCreated());
+
+        ItemToCartDto item2 = new ItemToCartDto("id-customer-1", product.getId(), 2);
+        String item2Json = objectMapper.writeValueAsString(item2);
+        mockMvc.perform(post("/cart/")
+                .content(item2Json)
+                .contentType("application/json;charset=UTF-8")
+                .characterEncoding("utf-8"));
+
+        String jsonResponse = mockMvc.perform(get("/cart/")
+                .param("idCustomer", "id-customer-1")
+                .characterEncoding("utf-8"))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        ShoppingCartDto cart = objectMapper.readValue(jsonResponse, ShoppingCartDto.class);
+        assertEquals(1, cart.getCartItems().size());
+        assertEquals(5, cart.getCartItems().get(0).getQuantity());
     }
 
     @Test

@@ -26,11 +26,14 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
         this.iProductRepository = iProductRepository;
     }
 
-    // TODO: Agregar validacion de cantidad
-
     @Transactional
     @Override
     public ShoppingCartEntity addCartItemToCart(CustomerEntity customer, ProductEntity product, int quantity) {
+        // TODO: Agregar validacion de cantidad solicitada con la que hay en inventario
+        ShoppingCartEntity cartItem = iShoppingCartRepository.findByCustomerAndProduct(customer, product);
+        if (cartItem != null) {
+            return updateItemQuantity(customer, product, cartItem.getQuantity() + quantity);
+        }
         return iShoppingCartRepository.save(new ShoppingCartEntity(customer, product, quantity));
     }
 
@@ -55,8 +58,6 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
     @Transactional
     @Override
     public ShoppingCartEntity updateItemQuantity(CustomerEntity customer, ProductEntity product, int quantity) {
-        // TODO: Dar el mismo tratamiento en agregar al carrito pero de manera inversa y
-        //  podriamos solucionar el bug del item repetido
         ShoppingCartEntity cartItem = iShoppingCartRepository.findByCustomerAndProduct(customer, product);
         if (cartItem != null) {
             cartItem.setQuantity(quantity);
