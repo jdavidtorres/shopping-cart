@@ -156,4 +156,48 @@ class ShoppingCartControllerTest {
         ShoppingCartDto cart = objectMapper.readValue(jsonResponse, ShoppingCartDto.class);
         assertEquals(125000, cart.getTotal());
     }
+
+    @Test
+    void updateItemQuantity() throws Exception {
+        ProductEntity newProduct = new ProductEntity("Control Remoto Samsung", "555555", 89900.00, 5, false);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String dtoString = objectMapper.writeValueAsString(newProduct);
+        String mvcResultString = mockMvc.perform(post("/products/")
+                .content(dtoString)
+                .contentType("application/json;charset=UTF-8")
+                .characterEncoding("utf-8"))
+                .andReturn().getResponse().getContentAsString();
+        ProductEntity product = objectMapper.readValue(mvcResultString, ProductEntity.class);
+
+        ItemToCartDto item = new ItemToCartDto("id-customer-1", product.getId(), 3);
+        String itemJson = objectMapper.writeValueAsString(item);
+        mockMvc.perform(post("/cart/")
+                .content(itemJson)
+                .contentType("application/json;charset=UTF-8")
+                .characterEncoding("utf-8"));
+
+        String jsonResponse = mockMvc.perform(get("/cart/")
+                .param("idCustomer", "id-customer-1")
+                .characterEncoding("utf-8"))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        ShoppingCartDto cart = objectMapper.readValue(jsonResponse, ShoppingCartDto.class);
+        assertEquals(3 * newProduct.getPrice(), cart.getTotal());
+
+        item = new ItemToCartDto("id-customer-1", product.getId(), 5);
+        String itemUpdatedJson = objectMapper.writeValueAsString(item);
+        mockMvc.perform(put("/cart/")
+                .content(itemUpdatedJson)
+                .contentType("application/json;charset=UTF-8")
+                .characterEncoding("utf-8"))
+                .andExpect(status().isOk());
+
+        jsonResponse = mockMvc.perform(get("/cart/")
+                .param("idCustomer", "id-customer-1")
+                .characterEncoding("utf-8"))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        cart = objectMapper.readValue(jsonResponse, ShoppingCartDto.class);
+        assertEquals(5 * newProduct.getPrice(), cart.getTotal());
+    }
 }

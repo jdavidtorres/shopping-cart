@@ -107,8 +107,13 @@ public class ShoppingCartController {
     }
 
     @PutMapping
-    public ShoppingCartEntity updateItemQuantity(@RequestParam String idCustomer, @RequestParam String idProduct, @RequestParam String quantity) {
+    public ResponseEntity<?> updateItemQuantity(@Valid @RequestBody ItemToCartDto item, BindingResult result) {
+        Optional<CustomerEntity> customer = iCustomerService.findById(item.getIdCustomer());
+        Optional<ProductEntity> product = iProductService.findById(item.getIdProduct());
 
-        return iShoppingCartService.updateItemQuantity(idCustomer, idProduct, Integer.parseInt(quantity));
+        if (customer.isEmpty() || product.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(iShoppingCartService.updateItemQuantity(customer.get(), product.get(), item.getQuantity()));
     }
 }

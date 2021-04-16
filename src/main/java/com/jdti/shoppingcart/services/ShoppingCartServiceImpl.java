@@ -6,7 +6,6 @@ import com.jdti.shoppingcart.models.entities.ShoppingCartEntity;
 import com.jdti.shoppingcart.models.repositories.ICustomerRepository;
 import com.jdti.shoppingcart.models.repositories.IProductRepository;
 import com.jdti.shoppingcart.models.repositories.IShoppingCartRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,14 +14,19 @@ import java.util.List;
 @Service
 public class ShoppingCartServiceImpl implements IShoppingCartService {
 
-    @Autowired
-    private IShoppingCartRepository iShoppingCartRepository;
+    private final IShoppingCartRepository iShoppingCartRepository;
 
-    @Autowired
-    private ICustomerRepository iCustomerRepository;
+    private final ICustomerRepository iCustomerRepository;
 
-    @Autowired
-    private IProductRepository iProductRepository;
+    private final IProductRepository iProductRepository;
+
+    public ShoppingCartServiceImpl(IShoppingCartRepository iShoppingCartRepository, ICustomerRepository iCustomerRepository, IProductRepository iProductRepository) {
+        this.iShoppingCartRepository = iShoppingCartRepository;
+        this.iCustomerRepository = iCustomerRepository;
+        this.iProductRepository = iProductRepository;
+    }
+
+    // TODO: Agregar validacion de cantidad
 
     @Transactional
     @Override
@@ -50,12 +54,15 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
 
     @Transactional
     @Override
-    public ShoppingCartEntity updateItemQuantity(String idCustomer, String idProduct, int quantity) {
-        // TODO: Refactorizar agregando un optional en los services de Customer y Product para validar en el Controller
-        CustomerEntity customer = iCustomerRepository.findById(idCustomer).get();
-        ProductEntity product = iProductRepository.findById(idProduct).get();
+    public ShoppingCartEntity updateItemQuantity(CustomerEntity customer, ProductEntity product, int quantity) {
+        // TODO: Dar el mismo tratamiento en agregar al carrito pero de manera inversa y
+        //  podriamos solucionar el bug del item repetido
         ShoppingCartEntity cartItem = iShoppingCartRepository.findByCustomerAndProduct(customer, product);
-        cartItem.setQuantity(quantity);
-        return iShoppingCartRepository.save(cartItem);
+        if (cartItem != null) {
+            cartItem.setQuantity(quantity);
+            return iShoppingCartRepository.save(cartItem);
+        } else {
+            return addCartItemToCart(customer, product, quantity);
+        }
     }
 }
