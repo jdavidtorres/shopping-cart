@@ -111,7 +111,11 @@ public class ShoppingCartController {
         Optional<CustomerEntity> customer = iCustomerService.findById(item.getIdCustomer());
         Optional<ProductEntity> product = iProductService.findById(item.getIdProduct());
 
-        if (customer.isEmpty() || product.isEmpty()) {
+        if (result.hasErrors()) {
+            Map<String, Object> errors = new HashMap<>();
+            result.getFieldErrors().forEach(err -> errors.put(err.getField(), err.getDefaultMessage()));
+            return ResponseEntity.badRequest().body(errors);
+        } else if (customer.isEmpty() || product.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(iShoppingCartService.updateItemQuantity(customer.get(), product.get(), item.getQuantity()));
