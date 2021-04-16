@@ -38,13 +38,8 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
 
     @Transactional
     @Override
-    public void deleteItemCart(String idCustomer, String idProduct) {
-        // TODO: Borrar mas bonito
-        CustomerEntity customerEntity = new CustomerEntity();
-        customerEntity.setId(idCustomer);
-        ProductEntity productEntity = new ProductEntity();
-        productEntity.setId(idProduct);
-        iShoppingCartRepository.deleteByCustomerAndProduct(customerEntity, productEntity);
+    public void deleteItemCart(CustomerEntity customer, ProductEntity product) {
+        iShoppingCartRepository.deleteByCustomerAndProduct(customer, product);
     }
 
     @Transactional

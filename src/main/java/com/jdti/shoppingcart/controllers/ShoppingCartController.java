@@ -84,8 +84,16 @@ public class ShoppingCartController {
     }
 
     @DeleteMapping
-    public void deleteItemCart(@RequestParam String idCustomer, @RequestParam String idProduct) {
-        iShoppingCartService.deleteItemCart(idCustomer, idProduct);
+    public ResponseEntity<?> deleteItemCart(@RequestParam String idCustomer, @RequestParam String idProduct) {
+        Optional<CustomerEntity> customer = iCustomerService.findById(idCustomer);
+        Optional<ProductEntity> product = iProductService.findById(idProduct);
+
+        if (customer.isEmpty() || product.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        iShoppingCartService.deleteItemCart(customer.get(), product.get());
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/clean")

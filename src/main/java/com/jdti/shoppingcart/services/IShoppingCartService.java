@@ -12,7 +12,7 @@ public interface IShoppingCartService {
 
     List<ShoppingCartEntity> findByCustomerId(CustomerEntity customer);
 
-    void deleteItemCart(String idCustomer, String idProduct);
+    void deleteItemCart(CustomerEntity customer, ProductEntity product);
 
     void deleteAllByCustomer(String idCustomer);
 
