@@ -2,7 +2,6 @@ package com.jdti.shoppingcart.controllers;
 
 import com.jdti.shoppingcart.models.entities.ProductEntity;
 import com.jdti.shoppingcart.services.IProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -23,8 +22,11 @@ import java.util.Optional;
 @RestController
 public class ProductController {
 
-    @Autowired
-    private IProductService iProductService;
+    private final IProductService iProductService;
+
+    public ProductController(IProductService iProductService) {
+        this.iProductService = iProductService;
+    }
 
     @PostMapping
     public ResponseEntity<?> save(@Valid @RequestBody ProductEntity product, BindingResult result) {

@@ -4,7 +4,6 @@ import com.jdti.shoppingcart.models.entities.CustomerEntity;
 import com.jdti.shoppingcart.models.entities.ShippingEntity;
 import com.jdti.shoppingcart.services.ICustomerService;
 import com.jdti.shoppingcart.services.IShippingService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,11 +20,14 @@ import java.util.Optional;
 @RestController
 public class ShippingController {
 
-    @Autowired
-    private IShippingService iShippingService;
+    private final IShippingService iShippingService;
 
-    @Autowired
-    private ICustomerService iCustomerService;
+    private final ICustomerService iCustomerService;
+
+    public ShippingController(IShippingService iShippingService, ICustomerService iCustomerService) {
+        this.iShippingService = iShippingService;
+        this.iCustomerService = iCustomerService;
+    }
 
     @GetMapping
     public ResponseEntity<?> findAllShipping(String idCustomer) {
