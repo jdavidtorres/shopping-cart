@@ -9,7 +9,6 @@ import com.jdti.shoppingcart.models.entities.ShoppingCartEntity;
 import com.jdti.shoppingcart.services.ICustomerService;
 import com.jdti.shoppingcart.services.IProductService;
 import com.jdti.shoppingcart.services.IShoppingCartService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -33,14 +32,17 @@ import java.util.Optional;
 @RestController
 public class ShoppingCartController {
 
-    @Autowired
-    private IShoppingCartService iShoppingCartService;
+    private final IShoppingCartService iShoppingCartService;
 
-    @Autowired
-    private IProductService iProductService;
+    private final IProductService iProductService;
 
-    @Autowired
-    private ICustomerService iCustomerService;
+    private final ICustomerService iCustomerService;
+
+    public ShoppingCartController(IShoppingCartService iShoppingCartService, IProductService iProductService, ICustomerService iCustomerService) {
+        this.iShoppingCartService = iShoppingCartService;
+        this.iProductService = iProductService;
+        this.iCustomerService = iCustomerService;
+    }
 
     @PostMapping
     public ResponseEntity<?> addCartItemToCart(@Valid @RequestBody ItemToCartDto item, BindingResult result) {
