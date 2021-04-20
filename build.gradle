@@ -1,13 +1,21 @@
 plugins {
-    id 'org.springframework.boot' version '2.3.9.RELEASE'
+    id 'org.springframework.boot' version '2.4.5'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
     id 'application'
 }
 
 group = 'com.jdti.shoppingcart'
-version = '0.0.2'
+version = '0.0.3'
 sourceCompatibility = '11'
+
+jar {
+    enabled = true
+}
+
+bootJar {
+    archiveFileName = 'shopping.jar'
+}
 
 configurations {
     compileOnly {
@@ -27,10 +35,9 @@ dependencies {
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
+    runtimeOnly 'com.h2database:h2'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'com.h2database:h2'
 }
 
