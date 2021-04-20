@@ -1,0 +1,460 @@
+{
+  "info": {
+    "_postman_id": "515ff381-b9ca-4cef-945b-6702fafec1c8",
+    "name": "shipping-cart",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "saveProduct1",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"Bauker Cortacesped 675 3N1 R/A 21 163Cc\",\r\n    \"price\": \"2500000\",\r\n    \"quantity\": 5,\r\n    \"sku\": \"467040\",\r\n    \"description\":\"Cortacesped Bauker 675 3N1 R/A 21 163Cc 1300 W\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8090/products",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8090",
+          "path": [
+            "products"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "saveProduct2",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"Kolor Pintura para Interior Azul Dhule Deluxe Mate 1/2 Galón\",\r\n    \"price\": \"33200\",\r\n    \"quantity\": 5,\r\n    \"sku\": \"404900\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8090/products",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8090",
+          "path": [
+            "products"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "saveProduct3",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"Propack 3 Rollos de Alambre #12 X 100m Blanco, Rojo y Amarillo\",\r\n    \"price\": \"404900\",\r\n    \"quantity\": 5,\r\n    \"sku\": \"279834\",\r\n    \"description\": \"Nexans Propack 3 Rollos de Alambre #12 X 100m Blanco, Rojo y Amarillo. Cobre. Distribución de energía eléctrica en baja tensión\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8090/products",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8090",
+          "path": [
+            "products"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "saveProducDisc1",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"Bauker Cortacesped 675 3N1 R/A 21 163Cc\",\r\n    \"price\": \"2500000\",\r\n    \"quantity\": 1,\r\n    \"sku\": \"467040\",\r\n    \"discount\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8090/products",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8090",
+          "path": [
+            "products"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "saveProducDisc2",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"Bauker Cortacesped 675 3N1 R/A 21 163Cc\",\r\n    \"price\": \"2500000\",\r\n    \"quantity\": 1,\r\n    \"sku\": \"467040\",\r\n    \"discount\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8090/products",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8090",
+          "path": [
+            "products"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getProducts",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8090/products",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8090",
+          "path": [
+            "products"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getProduct",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8090/products/detail?idProduct=60f454ed-8b29-4f5a-8ed2-4ef30e7b0bd5",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8090",
+          "path": [
+            "products",
+            "detail"
+          ],
+          "query": [
+            {
+              "key": "idProduct",
+              "value": "60f454ed-8b29-4f5a-8ed2-4ef30e7b0bd5"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getProduct Copy",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8090/products/details?sku=SKU-123456",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8090",
+          "path": [
+            "products",
+            "details"
+          ],
+          "query": [
+            {
+              "key": "sku",
+              "value": "SKU-123456"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "addToCart",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"idCustomer\": \"id-customer-1\",\r\n    \"idProduct\": \"ea26a4bf-3e5e-4873-aa1f-68c05d6b2669\",\r\n    \"quantity\": \"3\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8090/cart",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8090",
+          "path": [
+            "cart"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getCart",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8090/cart?idCustomer=id-customer-1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8090",
+          "path": [
+            "cart"
+          ],
+          "query": [
+            {
+              "key": "idCustomer",
+              "value": "id-customer-1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "deleteCart",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8090/cart?idCustomer=id-customer-1&idProduct=ea26a4bf-3e5e-4873-aa2f-68c05d6b2670",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8090",
+          "path": [
+            "cart"
+          ],
+          "query": [
+            {
+              "key": "idCustomer",
+              "value": "id-customer-1"
+            },
+            {
+              "key": "idProduct",
+              "value": "ea26a4bf-3e5e-4873-aa2f-68c05d6b2670"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "cleanCart",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8090/cart/clean?idCustomer=id-customer-1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8090",
+          "path": [
+            "cart",
+            "clean"
+          ],
+          "query": [
+            {
+              "key": "idCustomer",
+              "value": "id-customer-1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "updateQuantity",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8090/cart?idCustomer=id-customer-1&idProduct=ea26a4bf-3e5e-4873-aa2f-68c05d6b2670&quantity=7",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8090",
+          "path": [
+            "cart"
+          ],
+          "query": [
+            {
+              "key": "idCustomer",
+              "value": "id-customer-1"
+            },
+            {
+              "key": "idProduct",
+              "value": "ea26a4bf-3e5e-4873-aa2f-68c05d6b2670"
+            },
+            {
+              "key": "quantity",
+              "value": "7"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "confirmShipping",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8090/shipping?idCustomer=id-customer-1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8090",
+          "path": [
+            "shipping"
+          ],
+          "query": [
+            {
+              "key": "idCustomer",
+              "value": "id-customer-1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "completeShipping",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8090/shipping?idCustomer=id-customer-1&orderLine=4",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8090",
+          "path": [
+            "shipping"
+          ],
+          "query": [
+            {
+              "key": "idCustomer",
+              "value": "id-customer-1"
+            },
+            {
+              "key": "orderLine",
+              "value": "4"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
